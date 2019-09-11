@@ -1,4 +1,4 @@
-import turtle
+# import turtle
 import random
 
 def hangmanStand():
@@ -50,15 +50,16 @@ def chooseField(fieldName):
     print("Welcome to {} section".format(fieldName))
     musicDict = {}
     file1 = open('music_Questions.txt', 'r')
-    lines = file1.readline().split(':')
-    while lines:
-        musicDict[lines[0]] = lines[1]
-        lines = file1.readline().split(':')
+    lines = file1.read().split(':')
+    for i in range(0, len(lines) - 1, 2):
+        musicDict[lines[i]] = lines[i+1]
     print(musicDict)
+    print(musicDict.values())
     question = random.choice(list(musicDict.keys()))
     print(question)
-    print(musicDict[question])
-    name = input("Enter the winner name: ")
+    print('*' * len(musicDict[question]))
+    name = input("Enter your guess: ")
+
     if musicDict[question].strip('\n') == name:
         print("Correct")
     else:
@@ -68,12 +69,12 @@ def chooseField(fieldName):
 
 if __name__ == '__main__':
 
-    hangman = turtle.Turtle()
-    wn = turtle.Screen()
-    wn.bgcolor("green")
-    hangman.pensize(3)
-    hangman.hideturtle()
-    turtle.title("Welcome to Bishal's Hangman game")
+    # hangman = turtle.Turtle()
+    # wn = turtle.Screen()
+    # wn.bgcolor("green")
+    # hangman.pensize(3)
+    # hangman.hideturtle()
+    # turtle.title("Welcome to Bishal's Hangman game")
     print("Welcome to Bishal's hangman game")
     print("""
     Game Rules:
@@ -85,4 +86,4 @@ if __name__ == '__main__':
     # hangmanHead()
     # hangmanLegs()
     # hangmanHands()
-    turtle.done()
+    # turtle.done()
