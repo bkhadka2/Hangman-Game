@@ -57,13 +57,26 @@ def chooseField(fieldName):
     print(musicDict.values())
     question = random.choice(list(musicDict.keys()))
     print(question)
-    print('*' * len(musicDict[question]))
-    name = input("Enter your guess: ")
+    astrisk = '*' * len(musicDict[question])
+    print(astrisk)
+    for char in musicDict.get(question):
+        name = input("Enter your guessing character: ")
 
-    if musicDict[question].strip('\n') == name:
-        print("Correct")
-    else:
-        print("Incorrect")
+        if name in musicDict[question]:
+            print(musicDict.get(question))
+            count = musicDict[question].count(name)
+            print(count)
+            findingChar = musicDict[question].find(name)
+            astrisk[findingChar] = name
+            print(findingChar)
+            print(astrisk)
+        else:
+            print("Please try again")
+            continue
+    # if musicDict[question].strip('\n').lower() == name.lower():
+    #     print("Correct")
+    # else:
+    #     print("Incorrect")
 
 
 
