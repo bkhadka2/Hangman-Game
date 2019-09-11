@@ -1,6 +1,8 @@
 import turtle
 import random
 
+constant = 6
+
 def hangmanStand():
     # Hangman stand
     hangman.forward(130)
@@ -59,25 +61,28 @@ def chooseField(fieldName):
     print(question)
     astrisk = '*' * len(musicDict[question])
     print(astrisk)
-    for char in musicDict.get(question):
+    for i in range(6):
         name = input("Enter your guessing character: ")
 
         if name in musicDict[question]:
-            print(musicDict.get(question))
-            count = musicDict[question].count(name)
-            print(count)
-            findingChar = musicDict[question].find(name)
-            astrisk[findingChar] = name
-            print(findingChar)
+            indices = []
+            findingChar = -1
+            while True:
+                findingChar = musicDict[question].find(name, findingChar + 1)
+                if findingChar == -1:
+                    break
+                else:
+                    indices.append(findingChar)
+            astrisk = list(astrisk)
+            for index in indices:
+                astrisk[index] = name
+            astrisk = "".join(astrisk)
             print(astrisk)
-        else:
-            print("Please try again")
-            continue
-    # if musicDict[question].strip('\n').lower() == name.lower():
-    #     print("Correct")
-    # else:
-    #     print("Incorrect")
 
+        else:
+            chanceCounter = i + 1
+            print("-> you have used {} chance/s <-".format(chanceCounter))
+            print("-> you have now {} chances left".format(constant - chanceCounter))
 
 
 if __name__ == '__main__':
@@ -88,15 +93,18 @@ if __name__ == '__main__':
     hangman.pensize(3)
     hangman.hideturtle()
     turtle.title("Welcome to Bishal's Hangman game")
+    print('=' * 35)
     print("Welcome to Bishal's hangman game")
+    print('=' * 35)
+
     print("""
     Game Rules:
     1) You should guess the name within six tries.
     2) You should save the cartoon character to be hanged.
     """)
-    # hangmanStand()
+    hangmanStand()
     chooseField("Music")
-    # hangmanHead()
-    # hangmanLegs()
-    # hangmanHands()
+    hangmanHead()
+    hangmanLegs()
+    hangmanHands()
     turtle.done()
