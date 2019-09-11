@@ -1,10 +1,10 @@
-# import turtle
+import turtle
 import random
 
 def hangmanStand():
     # Hangman stand
     hangman.forward(130)
-    hangman.setposition(65,0)
+    hangman.setposition(65, 0)
     hangman.left(90)
     hangman.forward(350)
     hangman.right(90)
@@ -82,12 +82,12 @@ def chooseField(fieldName):
 
 if __name__ == '__main__':
 
-    # hangman = turtle.Turtle()
-    # wn = turtle.Screen()
-    # wn.bgcolor("green")
-    # hangman.pensize(3)
-    # hangman.hideturtle()
-    # turtle.title("Welcome to Bishal's Hangman game")
+    hangman = turtle.Turtle()
+    wn = turtle.Screen()
+    wn.bgcolor("green")
+    hangman.pensize(3)
+    hangman.hideturtle()
+    turtle.title("Welcome to Bishal's Hangman game")
     print("Welcome to Bishal's hangman game")
     print("""
     Game Rules:
@@ -99,4 +99,4 @@ if __name__ == '__main__':
     # hangmanHead()
     # hangmanLegs()
     # hangmanHands()
-    # turtle.done()
+    turtle.done()
