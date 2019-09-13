@@ -71,33 +71,54 @@ def chooseField(fieldName):
     asterisk = '*' * len(musicDict[question])
     print(asterisk)
     chanceCounter = 0  # Keeps track of number of chances player has
-    numberOfTimesPlayed = 0  # Keeps track of number of times player has played
+    numberOfTimesPlayed = 0
     response = False  # helper variable for new turtle window
     start = True
-
     while start:
-        if response: # Executes only when player wants to play the game again
-            chanceCounter = 0
-            print('=' * 20)
-            print("Welcome again")
-            print('=' * 20)
-            turtle.Screen().reset()
-            turtle.title("Welcome to Bishal's Hangman game")
-            hangman.pensize(3)
-            hangman.hideturtle()
-            hangmanStand()
-            question = random.choice(list(musicDict.keys()))
-            print(question)
-            asterisk = '*' * len(musicDict[question])
-            print(asterisk)
+        if response:  # Executes only when player wants to play the game again
+                numberOfTimesPlayed += 1
+                chanceCounter = 0
+                print('=' * 20)
+                print("Welcome again")
+                print('=' * 20)
+                turtle.Screen().reset()
+                turtle.title("Welcome to Bishal's Hangman game")
+                hangman.pensize(3)
+                hangman.hideturtle()
+                hangmanStand()
+                question = random.choice(list(musicDict.keys()))
+                print(question)
+                asterisk = '*' * len(musicDict[question])
+                print(asterisk)
+
+        musicAnswer = musicDict[question].upper()
+
+        if asterisk == musicAnswer:
+            print("Congratulations, you have won the game")
+            userInput = input("Do you want to play again(y/n)?: ")
+            if userInput == 'y':
+                numberOfTimesPlayed += 1
+                question = random.choice(list(musicDict.keys()))
+                print(question)
+                asterisk = '*' * len(musicDict[question])
+                print(asterisk)
+            else:
+                print('=' * 35)
+                print("You played {} time/s".format(chanceCounter))
+                print("Good bye till next time >>> ")
+                print('=' * 35)
+                turtle.Screen().bye()
+                break
+        musicAnswer = musicDict[question].upper()
 
         character = input("Enter your guessing character: ")
+        character = character.upper()
 
-        if character in musicDict[question]:
+        if character in musicAnswer:
             indices = []  # finding the index of character/ repeated character and storing into it.
             findingChar = -1
             while True:
-                findingChar = musicDict[question].find(character, findingChar + 1)  # to find the index of char
+                findingChar = musicAnswer.find(character, findingChar + 1)  # to find the index of char
                 if findingChar == -1:
                     break
                 else:
@@ -135,12 +156,10 @@ def chooseField(fieldName):
                 turtle.write("Game Over", font=("Arial", 14, "normal"))
                 userInput = input("Do you want to play again(y/n)?: ")
                 if userInput == 'y':
-                    numberOfTimesPlayed += 1
                     response = True
                 else:
-                    numberOfTimesPlayed += 1
                     print('=' * 35)
-                    print("You played {} time/s".format(numberOfTimesPlayed))
+                    print("you played {} time/s".format(numberOfTimesPlayed))
                     print("Good bye till next time >>> ")
                     print('=' * 35)
                     turtle.Screen().bye()
