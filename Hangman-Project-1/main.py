@@ -3,8 +3,7 @@ import random
 
 constant = 6
 
-# Hangman stand
-def hangmanStand():
+def hangmanStand():  # Hangman stand
     hangman.forward(130)
     hangman.setposition(65, 0)
     hangman.left(90)
@@ -57,26 +56,41 @@ def hangmanRightHand():  # Hangman right hand
     hangman.left(95)
     hangman.fd(30)
 
+def fieldNameSelection():
+    print("""
+    choose the field by typing (a or b or c):
+    a. Music
+    b. Geography
+    c. Sports
+    """)
+    fieldName = input("Enter a field name: ")
+    if fieldName == 'a':
+        HangmanGame("music")
+    elif fieldName == 'b':
+        HangmanGame("geography")
+    elif fieldName == 'c':
+        HangmanGame("sports")
+    else:
+        print("invalid input")
 
-def chooseField(fieldName):
+
+def HangmanGame(fieldName):
     print("Welcome to {} section".format(fieldName))
-    musicDict = {}  # dictionary to keep key value pair of questions and answers
-    file1 = open('music_Questions.txt', 'r')
+    fieldDict = {}  # dictionary to keep key value pair of questions and answers
+    file1 = open('{}.txt'.format(fieldName), 'r')
     lines = file1.read().split(':')
     print(len(lines))
     for i in range(0, len(lines) - 1, 2):
-        musicDict[lines[i]] = lines[i+1]  # assigning right key with right value after splitting the text
-    question = random.choice(list(musicDict.keys()))
+        fieldDict[lines[i]] = lines[i+1]  # assigning right key with right value after splitting the text
+    question = random.choice(list(fieldDict.keys()))
     print(question)  # displaying random questions to the player
-    asterisk = '*' * len(musicDict[question])
+    asterisk = '*' * len(fieldDict[question])
     print(asterisk)
     chanceCounter = 0  # Keeps track of number of chances player has
-    numberOfTimesPlayed = 0
     response = False  # helper variable for new turtle window
     start = True
     while start:
         if response:  # Executes only when player wants to play the game again
-                numberOfTimesPlayed += 1
                 chanceCounter = 0
                 print('=' * 20)
                 print("Welcome again")
@@ -86,21 +100,27 @@ def chooseField(fieldName):
                 hangman.pensize(3)
                 hangman.hideturtle()
                 hangmanStand()
-                question = random.choice(list(musicDict.keys()))
+                fieldNameSelection()
+                question = random.choice(list(fieldDict.keys()))
                 print(question)
-                asterisk = '*' * len(musicDict[question])
+                asterisk = '*' * len(fieldDict[question])
                 print(asterisk)
 
-        musicAnswer = musicDict[question].upper()
+        fieldAnswer = fieldDict[question].upper()
 
-        if asterisk == musicAnswer:
-            print("Congratulations, you have won the game")
+        if asterisk == fieldAnswer:
+            print("Congratulations, you have guessed the right answers which is {} and won the game".format(fieldAnswer))
             userInput = input("Do you want to play again(y/n)?: ")
             if userInput == 'y':
-                numberOfTimesPlayed += 1
-                question = random.choice(list(musicDict.keys()))
+                turtle.Screen().reset()
+                turtle.title("Welcome to Bishal's Hangman game")
+                hangman.pensize(3)
+                hangman.hideturtle()
+                hangmanStand()
+                fieldNameSelection()
+                question = random.choice(list(fieldDict.keys()))
                 print(question)
-                asterisk = '*' * len(musicDict[question])
+                asterisk = '*' * len(fieldDict[question])
                 print(asterisk)
             else:
                 print('=' * 35)
@@ -109,16 +129,16 @@ def chooseField(fieldName):
                 print('=' * 35)
                 turtle.Screen().bye()
                 break
-        musicAnswer = musicDict[question].upper()
+        fieldAnswer = fieldDict[question].upper()
 
         character = input("Enter your guessing character: ")
         character = character.upper()
 
-        if character in musicAnswer:
+        if character in fieldAnswer:
             indices = []  # finding the index of character/ repeated character and storing into it.
             findingChar = -1
             while True:
-                findingChar = musicAnswer.find(character, findingChar + 1)  # to find the index of char
+                findingChar = fieldAnswer.find(character, findingChar + 1)  # to find the index of char
                 if findingChar == -1:
                     break
                 else:
@@ -159,7 +179,8 @@ def chooseField(fieldName):
                     response = True
                 else:
                     print('=' * 35)
-                    print("you played {} time/s".format(numberOfTimesPlayed))
+                    print("The right answer is {}".format(fieldAnswer))
+                    print('=' * 35)
                     print("Good bye till next time >>> ")
                     print('=' * 35)
                     turtle.Screen().bye()
@@ -181,7 +202,6 @@ if __name__ == '__main__':
     1) You should guess the name within six tries.
     2) You should save the cartoon character to be hanged.
     """)
-
     print('=' * 100)
     hangmanStand()
-    chooseField("Music")
+    fieldNameSelection()
