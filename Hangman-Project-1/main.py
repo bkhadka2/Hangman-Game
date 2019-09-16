@@ -63,15 +63,13 @@ def fieldNameSelection():
     b. Geography
     c. Sports
     """)
-    fieldName = input("Enter a field name: ")
-    if fieldName == 'a':
+    fieldName = input("Enter a field name (a or b or c): ")
+    if fieldName == 'a' or fieldName == 'A':
         HangmanGame("music")
-    elif fieldName == 'b':
+    if fieldName == 'b' or fieldName == 'B':
         HangmanGame("geography")
-    elif fieldName == 'c':
+    if fieldName == 'c' or fieldName == 'C':
         HangmanGame("sports")
-    else:
-        print("invalid input")
 
 
 def HangmanGame(fieldName):
@@ -79,7 +77,6 @@ def HangmanGame(fieldName):
     fieldDict = {}  # dictionary to keep key value pair of questions and answers
     file1 = open('{}.txt'.format(fieldName), 'r')
     lines = file1.read().split(':')
-    print(len(lines))
     for i in range(0, len(lines) - 1, 2):
         fieldDict[lines[i]] = lines[i+1]  # assigning right key with right value after splitting the text
     question = random.choice(list(fieldDict.keys()))
@@ -184,7 +181,8 @@ def HangmanGame(fieldName):
                     print("Good bye till next time >>> ")
                     print('=' * 35)
                     turtle.Screen().bye()
-                    break
+                    start = False
+
 
 
 if __name__ == '__main__':
