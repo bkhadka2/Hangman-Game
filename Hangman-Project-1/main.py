@@ -171,18 +171,18 @@ def HangmanGame(fieldName):
             else:
                 hangmanRightHand()
                 turtle.write("Game Over", font=("Arial", 14, "normal"))
-                userInput = input("Do you want to play again(y/n)?: ")
-                if userInput == 'y':
+                print("The right answer is {}".format(fieldAnswer))
+                reply = input("Do you want to play again(y/n)?: ")
+                if reply == 'y':
                     response = True
                 else:
                     print('=' * 35)
-                    print("The right answer is {}".format(fieldAnswer))
+                    print("You played {} time/s".format(chanceCounter))
                     print('=' * 35)
                     print("Good bye till next time >>> ")
                     print('=' * 35)
                     turtle.Screen().bye()
-                    start = False
-
+                    exit()
 
 
 if __name__ == '__main__':
