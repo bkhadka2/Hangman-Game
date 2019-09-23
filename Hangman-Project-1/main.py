@@ -2,6 +2,7 @@ import turtle
 import random
 
 constant = 6
+noOfTimesPlayed = 0
 
 def hangmanStand():  # Hangman stand
     hangman.forward(130)
@@ -57,22 +58,26 @@ def hangmanRightHand():  # Hangman right hand
     hangman.fd(30)
 
 def fieldNameSelection():
-    print("""
-    choose the field by typing (a or b or c):
-    a. Music
-    b. Geography
-    c. Sports
-    """)
-    fieldName = input("Enter a field name (a or b or c): ")
-    if fieldName == 'a' or fieldName == 'A':
-        HangmanGame("music")
-    if fieldName == 'b' or fieldName == 'B':
-        HangmanGame("geography")
-    if fieldName == 'c' or fieldName == 'C':
-        HangmanGame("sports")
+    isFieldNameCorrect = True
+    while isFieldNameCorrect:
+        print("""
+        choose the field by typing (a or b or c):
+        a. Music
+        b. Geography
+        c. Sports
+        """)
+        fieldName = input("Enter a field name (a or b or c): ")
+        if fieldName == 'a' or fieldName == 'A':
+            HangmanGame("music")
+        if fieldName == 'b' or fieldName == 'B':
+            HangmanGame("geography")
+        if fieldName == 'c' or fieldName == 'C':
+            HangmanGame("sports")
 
 
 def HangmanGame(fieldName):
+    global noOfTimesPlayed
+    noOfTimesPlayed += 1
     print("Welcome to {} section".format(fieldName))
     fieldDict = {}  # dictionary to keep key value pair of questions and answers
     file1 = open('{}.txt'.format(fieldName), 'r')
@@ -87,8 +92,8 @@ def HangmanGame(fieldName):
     response = False  # helper variable for new turtle window
     start = True
     while start:
-        if response:  # Executes only when player wants to play the game again
-                chanceCounter = 0
+        if response:
+                chanceCounter = 0 # Executes only when player wants to play the game again
                 print('=' * 20)
                 print("Welcome again")
                 print('=' * 20)
@@ -121,7 +126,7 @@ def HangmanGame(fieldName):
                 print(asterisk)
             else:
                 print('=' * 35)
-                print("You played {} time/s".format(chanceCounter))
+                print("You played {} time/s".format(noOfTimesPlayed))
                 print("Good bye till next time >>> ")
                 print('=' * 35)
                 turtle.Screen().bye()
@@ -130,6 +135,9 @@ def HangmanGame(fieldName):
 
         character = input("Enter your guessing character: ")
         character = character.upper()
+
+        if character in asterisk:
+            print("Alert!! You have already typed this character before")
 
         if character in fieldAnswer:
             indices = []  # finding the index of character/ repeated character and storing into it.
@@ -177,7 +185,7 @@ def HangmanGame(fieldName):
                     response = True
                 else:
                     print('=' * 35)
-                    print("You played {} time/s".format(chanceCounter))
+                    print("You played {} time/s".format(noOfTimesPlayed))
                     print('=' * 35)
                     print("Good bye till next time >>> ")
                     print('=' * 35)
@@ -199,6 +207,7 @@ if __name__ == '__main__':
     Game Rules:
     1) You should guess the name within six tries.
     2) You should save the cartoon character to be hanged.
+    3) Spaces are valid in my hangman game
     """)
     print('=' * 100)
     hangmanStand()
