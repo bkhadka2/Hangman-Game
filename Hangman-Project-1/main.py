@@ -199,9 +199,10 @@ if __name__ == '__main__':
     wn.bgcolor("green")
     hangman.pensize(3)
     hangman.hideturtle()
-    turtle.title("Welcome to Bishal's Hangman game")
+    name = input("Please Enter your name: ")
+    turtle.title("Welcome to Bishal's Hangman game, {}".format(name))
     print('=' * 35)
-    print("Welcome to Bishal's hangman game")
+    print("Welcome to Bishal's hangman game, {}".format(name))
     print('=' * 35)
     print("""
     Game Rules:
