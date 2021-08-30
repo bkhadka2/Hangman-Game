@@ -2,7 +2,7 @@
 
 ```
 Like a normal hangman game, you have to guess the right answer for the asked question.
-You will be given six chances. If failed, the man will be hanged. 
+You will be given six chances. If failed, the dummy will be hanged. 
 You will be prompt if you want to play the game more and if pressed yes, you can play as
 many times you want to play.
 ```
@@ -26,7 +26,7 @@ many times you want to play.
 - First git clone the repo
 - Navigate into hangman folder
 - Find the main.py file
-- In the terminal type *python3 main.py*
+- In the terminal type **python3 main.py**
 - Turtle window should display
 - Type the asked information in the terminal and enjoy the game
 
